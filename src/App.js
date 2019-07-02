@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import firebase from 'firebase';
 import reducers from './reducers';
+import LoginForm from './components/LoginForm';
 
 class App extends Component {
 
-    componentWillMount(){
+    componentWillMount() {
         const firebaseConfig = {
             apiKey: 'AIzaSyCT3A9apWA34DlYXV--JH8I10BqKl7gXXQ',
             authDomain: 'manager-2019-78760.firebaseapp.com',
@@ -22,10 +22,8 @@ class App extends Component {
     }
     render() {
         return(
-            <Provider store= { createStore(reducers)}>
-                <View>
-                    <Text>Hola ArkusNexus</Text>
-                </View>
+            <Provider store= { createStore(reducers) }>
+                <LoginForm/>
             </Provider>
         )
     }

@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button, Input } from './common';
-import { employeeUpdate } from '../actions';
+import { employeeUpdate, employeeCreate } from '../actions';
 
 class EmployeeCreate extends Component {
+    
+    onButtonPress() {
+        const { name, phone, shift } = this.props;
+        this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+    }
     render() {
-        console.log(this.props);
+        console.log(this.props.name);
         return (
             <Card>
                 <CardSection>
@@ -14,9 +19,7 @@ class EmployeeCreate extends Component {
                         label="Name"
                         placeholder="Juan"
                         value={this.props.name}
-                        onChangeText={
-                            text => this.props.employeeUpdate({ prop: 'name', value: text })
-                        }
+                        onChangeText={value => this.props.employeeUpdate({ prop: 'name', value })}
                     />
                 </CardSection>
 
@@ -25,9 +28,7 @@ class EmployeeCreate extends Component {
                         label="Phone"
                         placeholder="666-666-6666"
                        value={this.props.phone}
-                        onChangeText={
-                            text => this.props.employeeUpdate({ prop: 'phone', value: text })
-                        }
+                        onChangeText={value => this.props.employeeUpdate({ prop: 'phone', value })}
                     />
                 </CardSection>
 
@@ -35,9 +36,7 @@ class EmployeeCreate extends Component {
                     <Picker
                         style={{ flex: 1 }}
                         selectedValue={this.props.shift}
-                        onValueChange={
-                            day => this.props.employeeUpdate({ prop: 'shift', value: day })
-                        }
+                        onValueChange={value => this.props.employeeUpdate({ prop: 'shift', value })}
                     >
                         <Picker.Item label="Monday" value="Monday" />
                         <Picker.Item label="Tuesday" value="Tuesday" />
@@ -50,7 +49,9 @@ class EmployeeCreate extends Component {
                 </CardSection>
 
                 <CardSection>
-                    <Button>
+                    <Button
+                        onPress={this.onButtonPress.bind(this)}
+                    >
                         Create
                     </Button>
                 </CardSection>
@@ -63,7 +64,8 @@ class EmployeeCreate extends Component {
 const mapStateToProps = (state) => {
     //Connect with Reducer
     const { name, phone, shift } = state.employeeForm;
+    console.log(state);
     return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeCreate);
+export default connect(mapStateToProps, { employeeUpdate, employeeCreate })(EmployeeCreate);

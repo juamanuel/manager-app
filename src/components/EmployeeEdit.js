@@ -27,7 +27,7 @@ class EmployeeEdit extends Component {
     }
 
     onDecline() {
-        this.setState({ showModal: true });
+        this.setState({ showModal: false });
     }
 
     onAccept() {

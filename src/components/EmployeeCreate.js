@@ -63,7 +63,6 @@ class EmployeeCreate extends Component {
 const mapStateToProps = (state) => {
     //Connect with Reducer
     const { name, phone, shift } = state.employeeForm;
-    console.log(state);
     return { name, phone, shift };
 };
 
